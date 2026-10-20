@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /$
+Allow: /mentions-legales
+Allow: /cgu
+Allow: /confidentialite
+Allow: /css/
+Allow: /img/
+Allow: /js/site.js
+Disallow: /
+
+Sitemap: https://kenlod.fr/sitemap.xml

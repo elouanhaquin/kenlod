@@ -1,0 +1,53 @@
+/* Kenlod — spreadsheet extras: selection overlay, formula help, status bar, find */
+.sheet-area { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
+.sheet-area .sheet-wrap { flex: 1; }
+
+.sel-box, .refs-layer, .ref-box { position: absolute; pointer-events: none; box-sizing: border-box; }
+.sel-box { z-index: 2; }
+.sel-box.multi { border: 1px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.refs-layer { inset: 0; z-index: 3; }
+.ref-box { border: 2px solid; border-radius: 2px; }
+
+.fn-box {
+  position: absolute; z-index: 7; min-width: 260px; max-width: 380px; padding: 4px; font-size: 13px;
+  background: var(--panel); border: 1px solid var(--line-2); border-radius: 8px; box-shadow: var(--shadow);
+}
+.fn-opt { padding: 6px 8px; border-radius: 6px; cursor: pointer; }
+.fn-opt.on, .fn-opt:hover { background: var(--select); }
+.fn-opt b { margin-right: 4px; }
+.fn-hint { padding: 6px 8px; font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+.fn-hint .muted { font-family: var(--font); margin-top: 3px; }
+.fn-hint u { text-decoration: none; font-weight: 700; background: var(--select); border-radius: 3px; padding: 0 2px; }
+.fn-foot { font-size: 11px; padding: 4px 8px 2px; }
+
+.sheet-status {
+  display: flex; justify-content: flex-end; align-items: center; gap: 18px; height: 28px; padding: 0 16px;
+  font-size: 12.5px; color: var(--muted); background: var(--panel); border-top: 1px solid var(--line);
+}
+.sheet-status b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.find-bar {
+  position: absolute; right: 18px; top: 8px; z-index: 8; display: flex; align-items: center; gap: 6px;
+  background: var(--panel); border: 1px solid var(--line-2); border-radius: 10px; box-shadow: var(--shadow); padding: 6px 8px;
+}
+.find-bar > svg { width: 16px; height: 16px; color: var(--muted); }
+.find-bar .input { width: 220px; height: 30px; }
+.sheet td.found { box-shadow: inset 0 0 0 999px rgba(242, 183, 5, .35); }
+
+.sel-box[hidden], .fn-box[hidden], .find-bar[hidden] { display: none; }
+
+/* Frozen first row */
+.sheet.freeze tbody tr:first-child > * { position: sticky; top: 25px; z-index: 2; box-shadow: 0 2px 0 var(--line-2); }
+.sheet.freeze tbody tr:first-child > th.rowh { z-index: 3; }
+.sheet.freeze thead th { z-index: 4; }
+.sheet.freeze thead th.corner { z-index: 5; }
+
+/* Toolbar extras */
+.format-bar .icon-btn.txt { width: auto; min-width: 32px; padding: 0 7px; font: 600 13px var(--font); }
+.color-pick { position: relative; display: inline-grid; justify-items: center; align-content: center; gap: 1px; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; }
+.color-pick:hover { background: var(--hover); }
+.color-pick .a { font-weight: 700; font-size: 14px; line-height: 1; }
+.color-pick svg { width: 15px; height: 15px; }
+.format-bar .color-pick input[type=color] { width: 22px; height: 6px; padding: 0; border: 0; cursor: pointer; }
+.format-bar .color-pick input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
+.format-bar .color-pick input[type=color]::-webkit-color-swatch { border: 0; border-radius: 2px; }

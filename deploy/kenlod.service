@@ -1,0 +1,33 @@
+[Unit]
+Description=Kenlod
+After=network.target
+
+[Service]
+Type=simple
+User=kenlod
+Group=kenlod
+WorkingDirectory=/opt/kenlod
+EnvironmentFile=-/etc/kenlod.env
+Environment=NODE_ENV=production
+Environment=DATA_DIR=/var/lib/kenlod
+Environment=HOST=127.0.0.1
+Environment=PORT=3000
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning server/index.js
+Restart=always
+RestartSec=3
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+ReadWritePaths=/var/lib/kenlod
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+node_modules/
+data/
+*.log
+
+# Built by `npm run build`
+public/vendor/
+
+# Unsplash photos of the kenlod.fr landing page (Unsplash licence): each instance brings its own
+public/img/site/
